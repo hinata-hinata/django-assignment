@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="profile">
+  
+  {% if profile_user %}
+    
+    
+  <h1>{{ profile_user.username }}さんのプロフィール</h1>
+  <p>{{ profile_user.bio }}</p>
+
+  <div class="follow">
+    <a href=''>フォロウ:{{ followings.count }}</a>
+    <p>フォロワー:{{ followers.count }}</p>
+  </div>
+
+  <p>これまでの投稿数:{{ post_count }}件</p>
+
+   <form action="{% url 'follow' profile_user.id %}" method='post'>
+    {% csrf_token %}
+    {% if is_following%}
+    <button type='submit'>フォロー解除</button>
+    {% else %}
+    <button type='submit'>フォローする</button>
+    {% endif %}
+  </form> 
+
+  <h2>ーーーーーーーーー投稿一覧ーーーーーーーーー</h2>
+    {% for data in data_list %}
+      <div class="postCard">
+        <p>{{ data.created_at }}</p>
+        <p>{{ data.content }}</p>
+      </div>
+      
+    {% endfor %}
+  
+</div>
+  {% endif %}
+
+{% endblock %}

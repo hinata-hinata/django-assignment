@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="update">
+  <h1>{{ object.id }}</h1>
+  <form action="" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>更新</button>
+  </form>
+</div>
+
+{% endblock content %}
+

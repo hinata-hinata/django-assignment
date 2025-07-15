@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <title>Document</title>
+</head>
+<body>
+  <nav>
+     <div class="btn">
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+
+    <div class="container">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+      <div class="item">
+        <ul>
+          {% if user.is_authenticated %}
+            <h2>{{ user }}でログイン中</h2>
+          {% else %}
+            <li><a href="{% url 'login' %}">ログイン</a></li>
+          {% endif %}
+          
+          <li><a href="{% url 'logout' %}">ログアウト</a></li>
+          <li><a href="{% url 'accounts:signup' %}">新規作成</a></li>
+          {% comment %} <li><a href="{% url 'accounts:profile' data.author.username %}">プロフィールへ</a></li> {% endcomment %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <button id="scrollToBottom">↓</button>
+
+  <div class="main">
+
+    {% block content %}
+    {% endblock %}
+    
+  </div>
+  <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

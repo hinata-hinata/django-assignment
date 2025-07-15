@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="create">
+  <h1>ツイート</h1>
+  <form action="" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>投稿</button>
+  </form>
+</div>
+
+{% endblock %}
