@@ -7,17 +7,19 @@
   <div class="postCard">
     <div><a class='userName' href="{% url 'accounts:profile' data.author.username %}">{{ data.author.username }}</a> :{{ data.created_at }}</div>
 
-    <div>{{ data.content }}</div>
+    <div class='body'>{{ data.content }}</div>
     
     <div class="buttons">
-      <a href="{% url 'posts:update' data.pk %}">編集</a>
-      <a href="{% url 'posts:delete' data.id %}">削除</a>
+      <a class='update' href="{% url 'posts:update' data.pk %}">編集</a>
+      <a class='delete' href="{% url 'posts:delete' data.id %}">削除</a>
     </div>
     
   </div>
   {% endfor %}
   
-  <a href="{% url 'posts:create' %}">新規投稿</a>
+  {% comment %} <a href="{% url 'posts:create' %}">新規投稿</a> {% endcomment %}
+  <a href="{% url 'posts:create' %}" class='postBtn'>＋</a>
+
 </div>
 
 {% endblock %}

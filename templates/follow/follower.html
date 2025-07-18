@@ -2,6 +2,11 @@
 
 {% block content %}
 
-{% for %}
+{% for follow in followers %}
+  {{ follow.follower.username}}
+{% empty %}
+  <p>フォロワーはいません</p>
+{% endfor %}
+
 {% endblock content %}
 
