@@ -11,8 +11,8 @@
   <p>{{ profile_user.bio }}</p>
 
   <div class="follow">
-    <a href=''>フォロウ:{{ followings.count }}</a>
-    <p>フォロワー:{{ followers.count }}</p>
+    <a href='{% url "followlist" profile_user.id %}'>フォロー:{{ followings.count }}</a>
+    <a href='{% url "followerlist" profile_user.id %}'>フォロワー:{{ followers.count }}</a>
   </div>
 
   <p>これまでの投稿数:{{ post_count }}件</p>

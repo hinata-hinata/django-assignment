@@ -31,6 +31,12 @@ class FollowView(View):
     
     target_user = get_object_or_404(User, id=user_id)
     
+        # 自分自身のフォローは不可
+    if request.user == target_user:
+      # フォローできない旨を通知してリダイレクト
+      # ここは必要に応じてメッセージをつけると親切
+      return redirect('accounts:profile', username=target_user.username)
+    
     follow_relation = Follow.objects.filter(follower=request.user, following=target_user).first()
     
     if follow_relation:
@@ -45,5 +51,17 @@ follow_view = FollowView.as_view()
 class FollowList(View):
   def get(self, request, user_id):
     target_user = get_object_or_404(User, id=user_id)
-    follower = Follow.objects.filter()
-    return render(request, 'follower.html', )
+    followings = Follow.objects.filter(follower=target_user).select_related('following')
+    return render(request, 'follow/follow.html', {'followings':followings, 'target_user':target_user})
+  
+followlist = FollowList.as_view()
+
+
+class FollowerList(View):
+  def get(self, request, user_id):
+    target_user = get_object_or_404(User, id=user_id)
+    followers = Follow.objects.filter(following=target_user).select_related('follower')
+    print(f'target:{target_user}, fo2:{followers.values('follower')}')
+    return render(request, 'follow/follower.html', {'followers':followers, 'target_user':target_user})
+  
+followerlist = FollowerList.as_view()
