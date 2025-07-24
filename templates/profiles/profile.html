@@ -7,15 +7,15 @@
   {% if profile_user %}
     
     
-  <h1>{{ profile_user.username }}さんのプロフィール</h1>
-  <p>{{ profile_user.bio }}</p>
+  <h1 class='white'>{{ profile_user.username }}さんのプロフィール</h1>
+  <p class='white'>{{ profile_user.bio }}</p> <a href="{% url 'accounts:bio' profile_user.username %}">編集</a>
 
   <div class="follow">
     <a href='{% url "followlist" profile_user.id %}'>フォロー:{{ followings.count }}</a>
     <a href='{% url "followerlist" profile_user.id %}'>フォロワー:{{ followers.count }}</a>
   </div>
 
-  <p>これまでの投稿数:{{ post_count }}件</p>
+  <p class='white'>これまでの投稿数:{{ post_count }}件</p>
 
    <form action="{% url 'follow' profile_user.id %}" method='post'>
     {% csrf_token %}
@@ -30,7 +30,11 @@
     {% for data in data_list %}
       <div class="postCard">
         <p>{{ data.created_at }}</p>
-        <p>{{ data.content }}</p>
+        <p class='content'>{{ data.content }}</p>
+        <div class="buttons">
+          <a class='update' href="{% url 'posts:update' data.pk %}">編集</a>
+          <a class='delete' href="{% url 'posts:delete' data.id %}">削除</a>
+        </div>
       </div>
       
     {% endfor %}
