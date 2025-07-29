@@ -15,7 +15,7 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     data_list = Tweet.objects.filter(author=user).order_by('-created_at')
     post_count = data_list.count()
-
+    
     followers = Follow.objects.filter(following=user)
     followings = Follow.objects.filter(follower=user)
     

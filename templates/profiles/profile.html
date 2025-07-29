@@ -8,11 +8,16 @@
     
     
   <h1 class='white'>{{ profile_user.username }}さんのプロフィール</h1>
-  <p class='white'>{{ profile_user.bio }}</p> <a href="{% url 'accounts:bio' profile_user.username %}">編集</a>
 
-  <div class="follow">
-    <a href='{% url "followlist" profile_user.id %}'>フォロー:{{ followings.count }}</a>
-    <a href='{% url "followerlist" profile_user.id %}'>フォロワー:{{ followers.count }}</a>
+  <p class='white'>{{ profile_user.bio }}</p>
+  
+  {% if user.is_authenticated and user == profile_user %}
+    <a href="{% url 'accounts:bio' profile_user.username %}">編集</a>
+  {% endif %}
+
+  <div class="followBtn">
+    <a class='followlist' href='{% url "followlist" profile_user.id %}'>フォロー:{{ followings.count }}</a>
+    <a class='followerlist' href='{% url "followerlist" profile_user.id %}'>フォロワー:{{ followers.count }}</a>
   </div>
 
   <p class='white'>これまでの投稿数:{{ post_count }}件</p>
@@ -22,7 +27,9 @@
     {% if is_following%}
     <button type='submit'>フォロー解除</button>
     {% else %}
+    {% if user.is_authenticated and user != profile_user %} {# 自分をフォローできないように #}
     <button type='submit'>フォローする</button>
+    {% endif %}
     {% endif %}
   </form> 
 
