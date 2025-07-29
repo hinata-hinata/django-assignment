@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for follow in followers %}
-  {{ follow.follower.username}}
-{% empty %}
-  <p>フォロワーはいません</p>
-{% endfor %}
-
+<div class="follower">
+  {% for follow in followers %}
+    {{ follow.follower.username}}
+  {% empty %}
+    <p>フォロワーはいません</p>
+  {% endfor %}
+</div>
 {% endblock content %}
 
