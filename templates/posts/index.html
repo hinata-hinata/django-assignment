@@ -14,6 +14,12 @@
       <a class='delete' href="{% url 'posts:delete' data.id %}">削除</a>
     </div>
     
+    <form action="" method='post'>
+      {% csrf_token %}
+      <input type="hidden" name="tweet_id" value="{{ data.id }}">
+      <p><button type='submit'>いいね</button>:{{ data.like_count }}</p>
+    </form>
+    
   </div>
   {% endfor %}
   
